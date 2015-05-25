@@ -2,6 +2,7 @@ module Lita
   module Handlers
     class IdentityManager < Handler
       NEW_GITHUB_IDENTITY_REGEX = /(.+) is (.+) on github$/i
+      GET_GITHUB_IDENTITY_REGEX = /Who is (.+) on github\??$/i
 
       route NEW_GITHUB_IDENTITY_REGEX, :new_github_identity,
         command: true,
@@ -12,6 +13,16 @@ module Lita
         chat_name = match_data[1]
         github_name = match_data[2]
         response.reply("Linked #{chat_name} to #{github_name} on github")
+      end
+
+      route GET_GITHUB_IDENTITY_REGEX, :get_github_identity,
+        command: true,
+        help: { "Who is CHAT_USER on github?" => "Returns the github username for CHAT_USER" }
+
+      def get_github_identity(response)
+        match_data = response.message.body.match(GET_GITHUB_IDENTITY_REGEX)
+        chat_name = match_data[1]
+        response.reply("I don't know about #{chat_name} on github")
       end
     end
 
