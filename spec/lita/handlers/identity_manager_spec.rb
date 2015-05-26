@@ -21,5 +21,13 @@ describe Lita::Handlers::IdentityManager, lita_handler: true do
         expect(replies.last).to eql "I don't know about @sebastian on github"
       end
     end
+
+    context 'with that identity registered' do
+      it "replies with the github name" do
+        send_message("Lita: @sebastian is @sebastiangeiger on github")
+        send_message("Lita: Who is @sebastian on github?")
+        expect(replies.last).to eql "@sebastian is known as @sebastiangeiger on github"
+      end
+    end
   end
 end
