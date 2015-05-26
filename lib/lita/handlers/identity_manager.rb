@@ -12,8 +12,10 @@ module Lita
         match_data = response.message.body.match(NEW_GITHUB_IDENTITY_REGEX)
         chat_name = match_data[1]
         github_name = match_data[2]
-        response.reply("Linked #{chat_name} to #{github_name} on github")
         redis.set("github:#{chat_name}", github_name)
+        reply = "Linked #{chat_name} to #{github_name} on github"
+        log.debug(%Q{"#{response.message.body}" -> "#{reply}"})
+        response.reply(reply)
       end
 
       route GET_GITHUB_IDENTITY_REGEX, :get_github_identity,
@@ -23,11 +25,14 @@ module Lita
       def get_github_identity(response)
         match_data = response.message.body.match(GET_GITHUB_IDENTITY_REGEX)
         chat_name = match_data[1]
-        if github_name = redis.get("github:#{chat_name}")
-          response.reply("#{chat_name} is known as #{github_name} on github")
-        else
-          response.reply("I don't know about #{chat_name} on github")
-        end
+        github_name = redis.get("github:#{chat_name}")
+        reply = if github_name
+                  "#{chat_name} is known as #{github_name} on github"
+                else
+                  "I don't know about #{chat_name} on github"
+                end
+        log.debug(%Q{"#{response.message.body}" -> "#{reply}"})
+        response.reply(reply)
       end
     end
 
