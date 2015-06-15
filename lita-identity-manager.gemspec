@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "lita-identity-manager"
-  spec.version       = "0.1.0"
+  spec.version       = "0.1.1"
   spec.authors       = ["Sebastian Geiger"]
   spec.email         = ["sebastian.geiger@gmail.com"]
   spec.description   = "A lita plugin that lets you manage identities"
