@@ -5,8 +5,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["sebastian.geiger@gmail.com"]
   spec.description   = "A lita plugin that lets you manage identities"
   spec.summary       = "With this plugin you can link users to their identity on external services"
-  spec.homepage      = "TODO: Add a homepage"
-  spec.license       = "TODO: Add a license"
+  spec.homepage      = "https://github.com/sebastiangeiger/lita-identity-manager"
+  spec.license       = "ISC"
   spec.metadata      = { "lita_plugin_type" => "handler" }
 
   spec.files         = `git ls-files`.split($/)
